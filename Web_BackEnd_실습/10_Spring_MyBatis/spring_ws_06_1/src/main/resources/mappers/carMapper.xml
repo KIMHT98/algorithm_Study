@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- name space는 CarRepo의 fully qualified name으로 설정한다. -->
+<mapper namespace="com.ssafy.ws.model.dao.CarDao">
+	<resultMap type="com.ssafy.ws.model.dto.Car" id="carMap">
+		<result column="vin" property="vin" />
+		<result column="modelname" property="modelName" />
+		<result column="color" property="color" />
+		<result column="mileage" property="mileage" />
+		<result column="img" property="img" />
+	</resultMap>
+	<!-- 자동차 정보를 저장한다. id는 dao클래스의 메소드 이름과 일치시킨다. -->
+	<insert id="insert" parameterType="Car">
+		INSERT INTO car
+		VALUES(#{vin},
+		#{modelName}, #{color}, #{mileage}, #{img});
+	</insert>
+
+	<!-- 자동차를 vin으로 검색하여 조회한다. id는 dao클래스의 메소드 이름과 일치시킨다. -->
+	<select id="searchByVin" resultMap = "carMap" parameterType="int">
+		SELECT *
+		FROM car WHERE
+		vin = #{vin};
+	</select>
+
+	<!-- 자동차를 모델로 검색하여 조회한다. id는 dao클래스의 메소드 이름과 일치시킨다. -->
+	<select id="searchByModelName" resultMap = "carMap" parameterType="String">
+		SELECT *
+		FROM car
+		WHERE modelName LIKE
+		CONCAT('%',#{modelName},'%');
+	</select>
+
+	<!-- 모든 자동차 정보를 검색한다. id는 dao클래스의 메소드 이름과 일치시킨다. -->
+	<select id="selectAll" resultMap = "carMap">
+		SELECT * FROM car;
+	</select>
+</mapper> 
