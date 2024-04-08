@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 코드작성 -->
+<mapper namespace = "com.ssafy.hw.model.dao.ProductDao">
+	<insert id="insertProduct" parameterType="Product">
+		INSERT INTO product (pCode, pName, price, quantity, brand, pDesc)
+		VALUES (#{pCode}, #{pName}, #{price}, #{quantity}, #{brand}, #{pDesc});
+	</insert>
+	<select id="selectAllProduct" resultType="Product">
+		SELECT * FROM product;
+	</select>
+	<select id="selectProductBypCode" resultType="Product" parameterType="String">
+		SELECT * FROM product WHERE pCode = #{pCode};
+	</select>
+	<update id="updateProduct" parameterType="Product">
+		UPDATE product
+		SET pName=#{pName}, price=#{price}, quantity=#{quantity}, brand=#{brand}, pDesc=#{pDesc}
+		WHERE pCode=#{pCode}
+	</update>
+	<delete id="deleteProduct" parameterType="String">
+		DELETE FROM prodcut
+		WHERE pCode=#{pCode};
+	</delete>
+	
+</mapper>
