@@ -9,4 +9,11 @@ import com.ssafy.ws.model.dto.Movie;
 
 public interface MovieService {
 
+	int insert(Movie movie, MultipartFile file) throws IllegalStateException, IOException;
+
+	int delete(int id);
+
+	List<Movie> search(String title);
+
+	List<Movie> selectAll();
 }

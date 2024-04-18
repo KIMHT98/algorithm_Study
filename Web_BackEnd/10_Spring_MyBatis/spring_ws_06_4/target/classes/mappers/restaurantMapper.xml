@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- name space는 UserRepo의 fully qualified name으로 설정한다. -->
+<mapper namespace="com.ssafy.ws.model.dao.RestaurantDao">
+	<insert id="insertRestaurant" parameterType="Restaurant">
+		INSERT INTO restaurant(resId, name, address, signatureMenu, rate)
+		VALUES (#{resId}, #{resName}, #{address}, #{signatureMenu}, #{rate})
+	</insert>
+	<delete id="deleteRestaurant" parameterType="int">
+		DELETE FROM restaurant
+		WHERE resId=#{resId}
+	</delete>
+	<update id="updateRestaurant" parameterType="Restaurant">
+		UPDATE restaurant
+		SET name=#{resName}, address=#{address}, signatureMenu=#{signatureMenu}, rate=#{rate}
+		WHERE resId = #{resId}
+	</update>
+	<select id="selectAllRestaurant" resultType="Restaurant">
+		SELECT resId, name as resName, address, signatureMenu,rate FROM restaurant
+	</select>
+	<select id="selectRestaurantById" resultType="Restaurant" parameterType="int">
+		SELECT resId, name as resName, address, signatureMenu,rate  FROM restaurant WHERE resId=#{resId}
+	</select>
+</mapper>
+<!-- 코드작성 -->

@@ -20,5 +20,68 @@ import com.ssafy.ws.model.dto.Movie;
 @Service
 public class MovieServiceImpl implements MovieService {
 
+	private static final Logger logger = LoggerFactory.getLogger(MovieServiceImpl.class);
+
+	private MovieDao movieDao;
+
+	/**
+	 * 파일 업로드 경로를 설정하기 위해 ResourceLoader를 주입받는다.
+	 */
+	@Autowired
+	ResourceLoader resLoader;
+
+	public MovieDao getMovieRepo() {
+		return movieDao;
+	}
+
+	/**
+	 * setter를 통해 MovieDao을 주입 받는다.
+	 * 
+	 * @param MovieDao
+	 */
+	@Autowired
+	public void setMovieRepo(MovieDao dao) {
+		this.movieDao = dao;
+	}
+
+	@Override
+	@Transactional
+	public int insert(Movie movie, MultipartFile file) throws IllegalStateException, IOException {
+		fileHandling(movie, file);
+		return movieDao.insert(movie);
+	}
+
+	@Override
+	@Transactional
+	public int delete(int id) {
+		return movieDao.delete(id);
+
+	}
+
+	@Override
+	public List<Movie> selectAll() {
+		return movieDao.selectAll();
+	}
+
+	@Override
+	public List<Movie> search(String title) {
+		return movieDao.search(title);
+	}
+
+	private void fileHandling(Movie movie, MultipartFile file) throws IOException {
+		// 파일을 저장할 폴더 지정
+		Resource res = resLoader.getResource("resources/upload");
+		logger.debug("res: {}", res.getFile().getCanonicalPath());
+		if (file != null && file.getSize() > 0) {
+			// prefix를 포함한 전체 이름
+			movie.setImg(System.currentTimeMillis() + "_" + file.getOriginalFilename());
+			movie.setOrgImg(file.getOriginalFilename());
+
+			// 변경된 파일 이름이 적용된 Movie MovieService를 통해 DB에 저장한다.
+
+			file.transferTo(new File(res.getFile().getCanonicalPath() + "/" + movie.getImg()));
+		}
+
+	}
 
 }
