@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        fieldset {
+            width: 50%;
+        }
+    </style>
+</head>
+<body>
+
+    <fieldset>
+        <legend>점수 입력</legend>
+        <label for="subject">과목 : </label>
+        <input type="text" id="subject">
+        <label for="score">점수 : </label>
+        <input type="number" id="score">
+        <button id="save">점수 저장</button>
+    </fieldset>
+
+    </br>
+    <div>저장 내용</div>
+    <ul class="score-list">
+
+    </ul>
+
+    <script>
+
+        let scoreList = [];
+
+        // Q. 함수 이름은 saveScore로, 내용은 subject와 score 값을 localStorage에 저장할 수 있도록 코드를 작성해 봅시다.
+        let saveScore = (event) => {
+
+            // Q. 과목, 점수를 입력받는 태그를 가져오도록 코드를 작성해 봅시다.
+            let subject = document.querySelector("#subject");
+            console.log(subject)
+            let score = document.querySelector("#score");
+
+            // Q. scoreList 배열에 subject와 score 값을 저장해 봅시다.
+            scoreList.push({"과목": subject.value, "점수": score.value});
+            
+            // Q. scoreList를 localStorage에 저장해 봅시다.
+            localStorage.setItem("scoreList", JSON.stringify(scoreList));
+
+
+            /////////////////////////////////////////////////////////////
+
+
+            // Q. localStorage에 저장된 scoreList를 가져오는 코드를 작성해 봅시다.
+            let localStorageScoreList = JSON.parse(localStorage.getItem("scoreList"));
+            
+            // Q. score-list 클래스를 가진 태그 밑에 존재하는 모든 태그를 지우는 코드를 작성해 봅시다.
+            let scoreListClass = document.querySelector(".score-list");
+            scoreListClass.innerHTML = "";
+
+            // Q. localStorageScoreList의 내용을 ul 태그 밑에 li 태그로 추가하는 코드를 작성해 봅시다.
+            for(let idx = 0; idx < localStorageScoreList.length; idx++) {
+                let subject = localStorageScoreList[idx]["과목"];
+                let score = localStorageScoreList[idx]["점수"];
+                scoreListClass.innerHTML += ("<li> 과목: " + subject + " 점수: " + score + "</li>")
+            }
+            console.log(localStorageScoreList)
+
+        }
+
+        // Q. 점수 저장 버튼이 클릭되었을 때 saveScore 메소드가 동작할 수 있도록 코드를 작성해 봅시다.
+        let saveID = document.querySelector("#save");
+        saveID.addEventListener("click", saveScore);
+
+
+    </script>
+</body>
+</html>

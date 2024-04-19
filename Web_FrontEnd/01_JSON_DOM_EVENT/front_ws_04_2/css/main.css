@@ -1,0 +1,72 @@
+* {
+    margin: 0;
+    padding: 0;
+    /* 박스의 크기 결정법을 설정 */
+    box-sizing: border-box;
+    list-style: none;
+}
+
+a {
+    font-size: 12px;
+    text-decoration: none;
+    color: gray;
+}
+
+header {
+    background-color: black;
+    height: 70px;
+    padding: 0px 15px;
+    line-height: 70px;
+}
+.header-nav {
+    display: flex;
+    justify-content: space-between;
+}
+.content{
+    margin: 10px 30px;
+    display: flex;
+}
+.content-movie-list{
+    width: 85%;
+}
+.content-movie-like{
+    position: fixed;
+    width: 20%;
+    top: 100px;
+    right: 20px;
+}
+.movie-list-ul{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.movie-list-ul li {
+    width: 25%; 
+    margin-bottom: 20px; 
+}
+
+.movie-info{
+    width: 80%; 
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.like-btn{
+    margin: 30px;
+    padding: 5px;
+}
+footer{
+    background-color: black;
+    color: gray;
+    height: 50px;
+    line-height: 50px;
+}
+.footer-list{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.footer-list a {
+    margin: 0px 10px;
+  }

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* CSS 스타일은 변경하지 않습니다. */
+        div {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+        }
+
+        div:hover{
+            cursor: pointer;
+        }
+        
+        .box1 {
+            border: 2px solid black;
+        }
+
+        .box2 {
+            border: 2px solid blue;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. 요소 클릭 이벤트 -->
+    <h2>1. 클릭 이벤트</h1>
+    <div class="box1">
+        click
+    </div>
+
+    <!-- 2. 요소 마우스 이벤트 -->
+    <h2>2. 마우스 이벤트</h2>
+    <div class="box2">
+        mouse enter
+        mouse leave
+    </div>
+
+    <!-- 3. 키보드 이벤트 -->
+    <h2>3. 키보드 이벤트</h2>
+    <label for="password">텍스트 입력 : </label><input type="text" id="password">
+    <p class="check-password"></p>
+
+
+
+
+
+    <script>
+
+        // Q. box1 클래스를 가진 태그 정보를 가져오도록 코드를 작성해 봅시다.
+        let box1Class = document.querySelector(".box1");
+
+        // Q. 함수의 이름은 box1ClickHandler이면서, 브라우저에 알림창을 띄우는 코드를 작성해 봅시다.
+        let box1ClickHandler = (event) => {
+            alert("Hello!");
+        }
+
+        // Q. box1 클래스를 가진 태그에 click 이벤트가 발생할 경우 box1ClickHandler 함수가 실행될 수 있도록 코드를 작성해 봅시다.
+        box1Class.addEventListener("click", box1ClickHandler);
+
+
+
+
+
+        // Q. box2 클래스를 가진 태그 정보를 가져오도록 코드를 작성해 봅시다.
+        let box2Class = document.querySelector(".box2");
+
+        // // Q. 함수 이름은 box2MouseEnterHandler이면서, 글자색은 흰색으로 배경색은 검쟁색으로 변경하는 코드를 작성해 봅시다.
+        let box2MouseEnterHandler = (event) => {
+            event.target.style.color = "white";
+            event.target.style.background = "black";
+        } 
+
+        // // Q. 함수 이름은 box2MouseLeaveHandler이면서, 글자색은 검정색으로 배경색은 흰색으로 변경하는 코드를 작성해 봅시다.
+        let box2MouseLeaveHandler = (event) => {
+            event.target.style.color = "black";
+            event.target.style.background = "white";
+        }
+
+        // // Q. box2 클래스를 가진 태그에 mouseenter 이벤트가 발생할 경우 box2MousEenterHandler가 실행될 수 있도록 코드를 작성해 봅시다.
+        box2Class.addEventListener("mouseenter", box2MouseEnterHandler);
+
+        // // Q. box2 클래스를 가진 태그에 mouseleave 이벤트가 발생할 경우 box2MouseLeaveHandler가 실행될 수 있도록 코드를 작성해 봅시다.
+        box2Class.addEventListener("mouseleave", box2MouseLeaveHandler);
+
+
+
+
+
+        // // Q. password id를 가진 태그 정보를 가져오도록 코드를 작성해 봅시다.
+        let passwordID = document.querySelector("#password");
+
+        // // Q. 함수 이름은 passwordCheckHandler이면서, 
+        // //    입력한 내용의 길이가 8자리 이하면 빨간색으로 "8자리를 초과하는 패스워드를 사용해야 합니다." 초과라면 파란색으로 "사용가능한 패스워드 입니다."를
+        // //    check-password 클래스를 가진 태그에 넣어주는 코드를 작성해 봅시다.
+
+        let passwordCheckHandler = (event) => {
+            let passwordCheckClass = document.querySelector(".check-password");
+
+            if(event.target.value.length <= 8) {
+                passwordCheckClass.textContent = "8자리를 초과하는 패스워드를 사용해야 합니다.";
+                passwordCheckClass.style.color = "red";
+            }
+            else {
+                passwordCheckClass.textContent = "사용가능한 패스워드 입니다.";
+                passwordCheckClass.style.color = "blue";
+            }
+        }
+
+        // // Q. password id를 가진 태그에 keyup 이벤트가 발생할 경우 passwordCheckHandler가 실행될 수 있도록 코드를 작성해 봅시다.
+        passwordID.addEventListener("keyup", passwordCheckHandler);
+
+
+    </script>
+</body>
+</html>

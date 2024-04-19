@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* CSS 스타일은 변경하지 않습니다. */
+        div {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>이 텍스트의 색을 빨간색으로 변경</h1>
+    
+
+
+
+    <div id="box">
+        box1
+    </div>
+
+
+
+
+    <div class="box">
+        box2
+    </div>
+
+
+
+
+    <ul>
+        <li>I AM GREEN</li>
+        <li>I AM GREEN</li>
+        <li>I AM GREEN</li>
+    </ul>
+
+
+
+
+    <ol>
+        <li>I AM BLACK</li>
+        <li>I AM BLACK</li>
+        <li>I AM BLACK</li>
+    </ol>
+
+
+    <script>
+
+        // Q. <h1> 태그의 텍스트 색상을 빨간색으로 변경해 봅시다.
+        let h1Tag = document.querySelector("h1");
+        h1Tag.style.color = "red";
+
+        // Q. id가 box인 태그의 테두리를 검정색 실선으로 변경해 봅시다.
+        let boxID = document.getElementById("box");
+        boxID.style.borderStyle = "solid";
+        boxID.style.borderColor = "black";
+
+
+        // Q. class가 box인 태그의 테두리를 파란색 점선으로 변경해 봅시다.
+        let boxClass = document.querySelector(".box");
+        boxClass.style.borderStyle = "dotted";
+        boxClass.style.borderColor = "blue";
+
+
+        // Q. <ul> 태그 밑의 <li> 태그의 텍스트를 초록색으로 변경해 봅시다.
+        //    이때, <ol> 태그 밑의 <li> 태그는 변경되면 안됩니다.
+        let liTag = document.querySelectorAll("ul > li");
+
+        for(let idx = 0; idx < liTag.length; idx++) {
+            liTag[idx].style.color = "green";
+        }
+
+    </script>
+</body>
+</html>
