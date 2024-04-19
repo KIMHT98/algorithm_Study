@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- name space는 ReivewDao의 fully qualified name으로 설정한다. -->
+<!-- 코드작성 -->
+<mapper namespace="com.ssafy.ws.model.dao.ReviewDao">
+	<select id="selectAllReview" parameterType = "int" resultType="Review">
+		SELECT * FROM review WHERE resId = #{resId}
+	</select>
+	<insert id="insertReview" parameterType="Review">
+		INSERT INTO review (resId, writer, content)
+		VALUES (#{resId}, #{writer}, #{content})
+	</insert>
+	<delete id="deleteReview" parameterType="int">
+		DELETE FROM review
+		WHERE reviewId=#{reviewId} and resId=#{resId}
+	</delete>
+</mapper>

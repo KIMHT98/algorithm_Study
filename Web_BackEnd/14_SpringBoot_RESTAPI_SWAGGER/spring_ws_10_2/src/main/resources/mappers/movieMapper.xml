@@ -3,4 +3,22 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.ws.model.dao.MovieDao">
 
+	<!-- Movie 정보를 저장한다. -->
+	<insert id="insert" parameterType="Movie">
+		INSERT INTO movies
+		VALUES(#{id}, #{title}, #{director}, #{genre}, #{runningTime}, #{img})
+	</insert>
+	<!-- Movie 정보를 삭제한다.. -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM movies WHERE id=#{id}
+	</delete>
+	<!-- Movie에서 모든 정보를 검색한다. -->
+	<select id="selectAll" resultType="Movie">
+		SELECT * FROM movies
+	</select>
+	<!-- Movie를 제목으로 검색한다. -->
+	<select id="search" resultType="Movie" parameterType="String">
+		SELECT * FROM movies
+		WHERE title = #{title}
+	</select>
 </mapper>
