@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* CSS는 수정하지 않습니다. */
+        .text-center {
+            text-align: center;
+        }
+
+        .box {
+            width: 200px;
+            margin: 100px auto;
+            text-align: center;
+        }
+
+        img {
+            width: 100%;
+            border: 2px solid gray;
+        }
+
+        #img1 {
+            box-shadow: 20px 20px 5px red;
+        }
+
+        #img2 {
+            box-shadow: 20px 20px 5px green;
+        }
+
+        #img3 {
+            box-shadow: 20px 20px 5px blue;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="text-center">이미지 순서대로 불러오기</h1>
+    <div class="box">
+        <img src="" id="img1" alt="첫 번째">
+    </div>
+    <div class="box">
+        <img src="" id="img2" alt="두 번째">
+    </div>
+    <div class="box">
+        <img src="" id="img3" alt="세 번째">
+    </div>
+    <div class="box">
+        <button onclick="callBackHell()">콜백 지옥</button>
+        <button onclick="promise()">Promise</button>
+    </div>
+
+    <script>
+        const API_URL = "https://api.thecatapi.com/v1/images/search";
+        const img1 = document.getElementById("img1");
+        const img2 = document.getElementById("img2");
+        const img3 = document.getElementById("img3");
+
+
+        const DONE = 4;
+        const OK = 200;
+
+        let xhr;
+
+        let callBackHell = () => {
+
+            // Q. API_URL에 데이터를 요청하기 위한 XMLHttpRequest 객체를 생성하고 요청해 봅시다.
+            xhr = new XMLHttpRequest();
+            xhr.open("GET", API_URL);
+            xhr.send();
+
+            // Q. img1 아이디를 가진 태그의 이미지를 변경하도록 코드를 작성해 봅시다.
+            xhr.onreadystatechange = () => {
+                if(xhr.readyState === DONE) {
+                    if(xhr.status === OK) {
+                        
+                        img1.src = JSON.parse(xhr.response)[0].url;
+
+
+                        // Q. img2 아이디를 가진 태그의 이미지를 변경하도록 코드를 작성해 봅시다.
+                        xhr.open("GET", API_URL);
+                        xhr.send();
+                        
+                        xhr.onreadystatechange = () => {
+                            if(xhr.readyState === DONE) {
+                                if(xhr.status === OK) {
+
+                                    img2.src = JSON.parse(xhr.response)[0].url;
+
+
+                                    // Q. img3 아이디를 가진 태그의 이미지를 변경하도록 코드를 작성해 봅시다.
+                                    xhr.open("GET", API_URL);
+                                    xhr.send();
+                                    
+                                    xhr.onreadystatechange = () => {
+                                        if(xhr.readyState === DONE) {
+                                            if(xhr.status === OK) {
+
+                                                img3.src = JSON.parse(xhr.response)[0].url;
+
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+
+
+
+
+        let changeImage1 = () => {
+            // Q. img1 아이디를 가진 태그의 이미지를 변경 후, Promise 객체를 반환해 봅시다.
+            return new Promise( (reject, resolve) => {
+                xhr = new XMLHttpRequest();
+                xhr.open("GET", API_URL);
+                xhr.send();
+
+                xhr.onreadystatechange = () => {
+                    if(xhr.readyState === DONE) {
+                        if(xhr.status === OK) {
+                            img1.src = JSON.parse(xhr.response)[0].url;
+                            reject();
+                        }
+                    }
+                }
+
+            });
+        }
+
+        
+        let changeImage2 = () => {
+            // Q. img2 아이디를 가진 태그의 이미지를 변경 후, Promise 객체를 반환해 봅시다.
+            return new Promise( (reject, resolve) => {
+                
+                xhr.open("GET", API_URL);
+                xhr.send();
+
+                xhr.onreadystatechange = () => {
+                    if(xhr.readyState === DONE) {
+                        if(xhr.status === OK) {
+                            img2.src = JSON.parse(xhr.response)[0].url;
+                            reject();
+                        }
+                    }
+                }
+
+            });
+        }
+
+
+        let changeImage3 = () => {
+            // Q. img3 아이디를 가진 태그의 이미지를 변경 후, Promise 객체를 반환해 봅시다.
+            return new Promise( (reject, resolve) => {
+                
+                xhr.open("GET", API_URL);
+                xhr.send();
+
+                xhr.onreadystatechange = () => {
+                    if(xhr.readyState === DONE) {
+                        if(xhr.status === OK) {
+                            img3.src = JSON.parse(xhr.response)[0].url;
+                            reject();
+                        }
+                    }
+                }
+
+            });
+        }
+
+        // Q. changeImage1 ~ 3 메소드를 연결하여 호출해 봅시다.
+        let promise = () => {
+            changeImage1()
+            .then(changeImage2)
+            .then(changeImage3)
+        }
+    </script>
+</body>
+
+</html>
