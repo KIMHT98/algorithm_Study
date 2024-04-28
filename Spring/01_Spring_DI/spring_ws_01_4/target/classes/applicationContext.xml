@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<bean id="jR" class="com.ssafy.ws.JapaneseRestaurant">
+		<property name="menu">
+			<list>
+				<value>초밥</value>
+				<value>우동</value>
+				<value>소바</value>
+			</list>
+		</property>
+		<property name="reviews">
+			<list>
+				<ref bean="jReview1" />
+				<ref bean="jReview2" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="kR" class="com.ssafy.ws.KoreanRestaurant">
+		<property name="menu">
+			<list>
+				<value>비빔밥</value>
+				<value>된장찌개</value>
+				<value>소불고기</value>
+			</list>
+		</property>
+		<property name="reviews">
+			<list>
+				<ref bean="kReview1" />
+				<ref bean="kReview2" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="jReview1" class="com.ssafy.ws.Review">
+		<property name="title">
+			<value>일식리뷰1</value>
+		</property>
+		<property name="content">
+			<value>초밥맛집</value>
+		</property>
+		<property name="username">
+			<value>초밥헌터</value>
+		</property>
+	</bean>
+
+	<bean id="jReview2" class="com.ssafy.ws.Review">
+		<property name="title">
+			<value>일식리뷰2</value>
+		</property>
+		<property name="content">
+			<value>우동은별로네요</value>
+		</property>
+		<property name="username">
+			<value>우동사냥꾼</value>
+		</property>
+	</bean>
+
+	<bean id="kReview1" class="com.ssafy.ws.Review">
+		<property name="title">
+			<value>한식리뷰1</value>
+		</property>
+		<property name="content">
+			<value>구수한 된장찌개가 일품</value>
+		</property>
+		<property name="username">
+			<value>된장남</value>
+		</property>
+	</bean>
+
+	<bean id="kReview2" class="com.ssafy.ws.Review">
+		<property name="title">
+			<value>한식리뷰2</value>
+		</property>
+		<property name="content">
+			<value>비빔밥맛있다</value>
+		</property>
+		<property name="username">
+			<value>비빔밥마니아</value>
+		</property>
+	</bean>
+
+	<context:component-scan
+		base-package="com.ssafy.ws"></context:component-scan>
+
+</beans>

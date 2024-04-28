@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- 빈등록 및 의존성 주입 -->
+	<bean class="com.ssafy.hw.Review" id="review1">
+		<property name="title" value="냉장고리뷰1"></property>
+		<property name="content" value="성능이 아주 좋아요!!"></property>
+		<property name="username" value="김싸피"></property>
+	</bean>
+	<bean class="com.ssafy.hw.Review" id="review2">
+		<property name="title" value="냉장고리뷰2"></property>
+		<property name="content" value="냉동고가 없어서 불편해요"></property>
+		<property name="username" value="최싸피"></property>
+	</bean>
+	<bean class="com.ssafy.hw.Review" id="review3">
+		<property name="title" value="노트북리뷰1"></property>
+		<property name="content" value="성능이 아주 좋아요!!"></property>
+		<property name="username" value="김싸피"></property>
+	</bean>
+	<bean class="com.ssafy.hw.Review" id="review4">
+		<property name="title" value="노트북리뷰2"></property>
+		<property name="content" value="용량이 부족해요"></property>
+		<property name="username" value="최싸피"></property>
+	</bean>
+
+	<bean class="com.ssafy.hw.Refrigerator" id="refrigerator1">
+		<property name="option">
+			<list>
+				<value>용량 : 1000L</value>
+				<value>냉동고 O</value>
+			</list>
+		</property>
+		<property name="reviews">
+			<list>
+				<ref bean="review1"></ref>
+			</list>
+		</property>
+	</bean>
+
+	<bean class="com.ssafy.hw.Refrigerator" id="refrigerator2">
+		<property name="option">
+			<list>
+				<value>용량 : 300L</value>
+				<value>냉동고 X</value>
+			</list>
+		</property>
+		<property name="reviews">
+			<list>
+				<ref bean="review2"></ref>
+			</list>
+		</property>
+	</bean>
+	<bean class="com.ssafy.hw.Notebook" id="notebook1">
+		<property name="option">
+			<list>
+				<value>용량 : 512GB</value>
+				<value>RAM : 16GB</value>
+			</list>
+		</property>
+		<property name="reviews">
+			<list>
+				<ref bean="review3"></ref>
+			</list>
+		</property>
+	</bean>
+
+	<bean class="com.ssafy.hw.Notebook" id="notebook2">
+		<property name="option">
+			<list>
+				<value>용량 : 256GB</value>
+				<value>RAM : 8GB</value>
+			</list>
+		</property>
+		<property name="reviews">
+			<list>
+				<ref bean="review4"></ref>
+			</list>
+		</property>
+	</bean>
+
+<!-- 	<bean class="com.ssafy.hw.ProductPrinter" id="productPrinter">
+	<property name="product" ref="refrigerator1"></property>
+	<property name="products">
+	<list>
+	<ref bean="refrigerator1"></ref>
+	<ref bean="refrigerator2"></ref>
+	</list>
+	</property>
+	</bean> -->
+	
+	<bean class="com.ssafy.hw.ProductPrinter" id="productPrinter">
+	<property name="product" ref="notebook1"></property>
+	<property name="products">
+	<list>
+	<ref bean="notebook1"></ref>
+	<ref bean="notebook2"></ref>
+	</list>
+	</property>
+	</bean>
+
+
+</beans>
