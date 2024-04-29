@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.ws.model.dao.BookDao">
+	<select id="select" resultType="Book" parameterType="SearchCondition">
+		SELECT * FROM book
+		<if test="key != 'none'">
+			WHERE ${key} like concat('%',#{word},'%')
+		</if>
+		<if test="orderBy != 'none'">
+			ORDER BY ${orderBy} ${orderByDir}
+		</if>
+	</select>
+	<insert id="insert" parameterType="Book">
+		INSERT INTO book (isbn, title, author, price, content)
+		VALUES (#{isbn}, #{title}, #{author}, #{price}, #{content})
+	</insert>
+	<update id="update" parameterType="Book">
+		UPDATE book
+		SET title = #{title}, author=#{author}, price=#{price}, content=#{content}
+		WHERE isbn = #{isbn}
+	</update>
+	<select id="selectOne" parameterType="String" resultType="Book">
+		SELECT * FROM book
+		WHERE isbn = #{isbn}
+	</select>
+	<delete id="delete" parameterType="String">
+		DELETE FROM book
+		WHERE isbn = #{isbn}
+	</delete>
+</mapper>
