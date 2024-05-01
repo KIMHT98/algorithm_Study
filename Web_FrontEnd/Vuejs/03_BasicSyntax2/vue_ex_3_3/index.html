@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .is-completed {
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <h1>Todo Application</h1>
+
+    <p>Completed Count: {{completedCount}}</p>
+    <br>
+
+    <select v-model="selected">
+      <option value="total">전체</option>
+      <option value="complete">완료</option>
+      <option value="uncomplete">미완료</option>
+    </select>
+    <form @submit.prevent="addTodo">
+      <input type="text" v-model="newTodo">
+      <input type="submit" value="Add">
+    </form>
+
+    <ul>
+      <li v-for="todo in filteredTodos" :key="todo.id">
+        <input type="checkbox" v-model="todo.isCompleted">
+        <span :class="{ 'is-completed': todo.isCompleted }">{{ todo.text }}</span>
+        <button @click="deleteTodo(todo.id)">Delete</button>
+      </li>
+    </ul>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    const { createApp, ref, computed, watch } = Vue
+
+    const app = createApp({
+      setup() {
+        //할일 목록
+        const todos = ref([])
+        //새로 추가될 녀석
+        const newTodo = ref('')
+        //조회 방법
+        const selected=ref("uncomplete");
+        //완료한 녀석 개수
+        const completedCount = ref(0);
+        //할 일 추가하기
+        const addTodo = function () {
+          if (newTodo.value.trim() !== '') {
+            const todoObj = {
+              id: Date.now(),
+              text: newTodo.value,
+              isCompleted: false
+            }
+            todos.value.push(todoObj)
+            newTodo.value = ''
+          }
+        }
+        //할 일 지우기
+        const deleteTodo = function (todoId) {
+          const index = todos.value.findIndex(todo => todo.id === todoId)
+          if (index !== -1) {
+            todos.value.splice(index, 1)
+          }
+        }
+        //할 일 상태별 필터링
+        const filteredTodos = computed(()=>{
+          if(selected.value === "complete"){
+            return todos.value.filter(todo=>todo.isCompleted)
+          }else if(selected.value==="uncomplete"){
+            return todos.value.filter(todo=>!todo.isCompleted)
+          }else{
+            return todos.value
+          }
+        })
+        //완료한 개수
+        const countWatch = watch(todos.value,(nv,ol)=>{
+          completedCount.value = nv.filter((todo)=>todo.isCompleted).length
+        })
+        return { todos, newTodo, addTodo, deleteTodo, selected,completedCount,filteredTodos,countWatch}
+      }
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+</html>
